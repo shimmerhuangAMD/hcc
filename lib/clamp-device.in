@@ -76,7 +76,8 @@ LLD=$BINDIR/ld.lld
 
 
 HCC_BIN_PATH=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
-ROCM_DEVICE_LIBS_SEARCH_PATHS="$HCC_BIN_PATH/../../rocdl/lib;$HCC_BIN_PATH/../rocdl/lib;@ROCM_DEVICE_LIB_PATHS@"
+ROCM_DEVICE_LIBS_SEARCH_PATHS="$HCC_BIN_PATH/../../lib;@ROCM_DEVICE_LIB_PATHS@"
+
 ROCM_LIB=""
 for SEARCH_PATH in $(echo $ROCM_DEVICE_LIBS_SEARCH_PATHS | tr ";" "\n")
 do
@@ -208,7 +209,7 @@ fi
 
 # Optimization notes:
 #  -disable-simplify-libcalls:  prevents transforming loops into library calls such as memset, memcopy on GPU
-$OPT -mtriple amdgcn--amdhsa-amdgiz -mcpu=$AMDGPU_TARGET \
+$OPT -mtriple amdgcn-amd-amdhsa -mcpu=$AMDGPU_TARGET \
   -amdgpu-internalize-symbols -disable-simplify-libcalls $KMOPTOPT -verify \
   < $2.selected.bc -o $2.opt.bc
 
