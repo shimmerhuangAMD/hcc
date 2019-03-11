@@ -14,6 +14,7 @@ int fib(int x) restrict (amp, cpu) {
 int main ()
 {
 
+#if 0
   const int vecSize = 16;
 
   int ans[vecSize];
@@ -37,5 +38,7 @@ int main ()
     std::cout << "Verify failed!\n";
   }
   return (error != 0);
+#endif
+  return 1;
 }
 
